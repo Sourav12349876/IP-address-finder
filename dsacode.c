@@ -1,5 +1,8 @@
 #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
 typedef struct node
 {
     int ipAdd;
@@ -173,8 +176,7 @@ void inorder(splay_tree *t, node *n, char *cmn)
     if (n != NULL)
     {
         inorder(t, n->left, cmn);
-        printf("%s%d -> %d\n", cmn, n->ipAdd,
-               n->dataPacket);
+        printf("%s%d -> %d\n", cmn, n->ipAdd, n->dataPacket);
         inorder(t, n->right, cmn);
     }
 }
@@ -195,6 +197,7 @@ int main()
     i = new_node(122);
     j = new_node(125);
     k = new_node(129);
+    
     insert(t, a);
     insert(t, b);
     insert(t, c);
@@ -206,21 +209,23 @@ int main()
     insert(t, i);
     insert(t, j);
     insert(t, k);
+
     int x;
-    int find[11] = {104, 112, 117, 124, 121, 108, 109, 111,
-                    122, 125, 129};
-    int add[11] = {a, b, c, d, e, f, g, h, i, j, k};
+    int find[11] = {104, 112, 117, 124, 121, 108, 109, 111, 122, 125, 129};
     srand(time(0));
+
     for (x = 0; x < 11; x++)
     {
         int data = rand() % 200;
-        node *temp = search(t, add[x], find[x]);
+        node *temp = search(t, t->root, find[x]);
         if (temp != NULL)
         {
             temp->dataPacket = data;
         }
     }
+
     printf("IP ADDRESS -> DATA PACKET\n");
     inorder(t, t->root, cmn);
+
     return 0;
 }
